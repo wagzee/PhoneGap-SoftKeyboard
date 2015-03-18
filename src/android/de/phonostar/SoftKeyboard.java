@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 
 import android.os.SystemClock;
+import android.view.View;
 
 import java.lang.String;
 
