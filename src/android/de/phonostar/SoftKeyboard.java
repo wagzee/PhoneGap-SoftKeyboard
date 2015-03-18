@@ -12,9 +12,21 @@ import android.view.inputmethod.InputMethodManager;
 
 import android.os.SystemClock;
 
+import java.lang.String;
+
 public class SoftKeyboard extends CordovaPlugin {
 
+    private int xpos;
+    private int ypos;
+
     public SoftKeyboard() {
+      webView.setOnTouchListener(new View.OnTouchListener() { 
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+          xpos = event.getX();
+          ypos = event.getY();
+        }
+      });
     }
 
     public void showKeyBoard() {
@@ -68,9 +80,9 @@ public class SoftKeyboard extends CordovaPlugin {
 
           upResult = webView.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, keyCode));
           if (upResult) {
-            callbackContext.success();
+            callbackContext.success("Last event's coords were: " + xpos + "x" + ypos);
           } else {
-            callbackContext.error("Failed sending keyup event for key " + keyCode);
+            callbackContext.error("Last event's coords were: " + xpos + "x" + ypos);
           }
         }
       });
