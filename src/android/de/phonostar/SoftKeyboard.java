@@ -17,15 +17,15 @@ import java.lang.String;
 
 public class SoftKeyboard extends CordovaPlugin {
 
-    private int xpos;
-    private int ypos;
+    private float xpos;
+    private float ypos;
 
     public SoftKeyboard() {
       webView.setOnTouchListener(new View.OnTouchListener() { 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-          xpos = event.getX();
-          ypos = event.getY();
+          xpos = (float) event.getX();
+          ypos = (float) event.getY();
         }
       });
     }
