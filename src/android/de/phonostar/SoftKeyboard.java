@@ -32,10 +32,12 @@ public class SoftKeyboard extends CordovaPlugin {
     }
 
     public boolean sendKey(final int keyCode, final CallbackContext callbackContext) {
-      if (!isKeyBoardShowing()) {
+      /**
+       if (!isKeyBoardShowing()) {
         callbackContext.error("Unable to send key press for " + keyCode + ": Softkeyboard is not showing");
         return false;
       }
+      **/
 
       cordova.getActivity().runOnUiThread(new Runnable() {
         public void run() {
