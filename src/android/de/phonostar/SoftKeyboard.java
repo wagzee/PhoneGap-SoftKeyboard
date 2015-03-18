@@ -10,6 +10,8 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 
+import android.os.SystemClock;
+
 public class SoftKeyboard extends CordovaPlugin {
 
     public SoftKeyboard() {
@@ -38,9 +40,9 @@ public class SoftKeyboard extends CordovaPlugin {
           up = webView.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, posx, posy, 0));
           down = webView.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, posx, posy, 0));
           if (!down || !up) {
-            callbackContext.error("Failed sending key up+down event for coords " + x + ", " + y);
+            callbackContext.error("Failed sending key up+down event for coords " + posx + ", " + posy);
           } else {
-            callbackContext.success("Succesfully sent key up+down event for coords " + x + ", " + y);
+            callbackContext.success("Succesfully sent key up+down event for coords " + posx + ", " + posy);
           }
         }
       });
