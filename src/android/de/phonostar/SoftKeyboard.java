@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.os.SystemClock;
 import android.view.View;
 
+import android.util.Log;
 import java.lang.String;
 
 public class SoftKeyboard extends CordovaPlugin {
@@ -21,14 +22,6 @@ public class SoftKeyboard extends CordovaPlugin {
     private float ypos;
 
     public SoftKeyboard() {
-      webView.setOnTouchListener(new View.OnTouchListener() { 
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-          xpos = (float) event.getX();
-          ypos = (float) event.getY();
-          return true;
-        }
-      });
     }
 
     public void showKeyBoard() {
@@ -43,7 +36,24 @@ public class SoftKeyboard extends CordovaPlugin {
       mgr.hideSoftInputFromWindow(webView.getWindowToken(), 0);
     }
 
+    public int getWebViewWidth() {
+      return webView.getWidth();
+    }
+
+    public int getWebViewHeight() {
+      return webView.getHeight();
+    }
+
     public boolean isKeyBoardShowing() {
+      webView.setOnTouchListener(new View.OnTouchListener() { 
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+          xpos = (float) event.getX();
+          ypos = (float) event.getY();
+          Log.d("CordovaNIK", String.format("Last event was at %sx%s on the Android side", xpos, ypos));
+          return false;
+        }
+      });
       int heightDiff = webView.getRootView().getHeight() - webView.getHeight();
       return (100 < heightDiff); // if more than 100 pixels, its probably a keyboard...
     }
@@ -105,6 +115,14 @@ public class SoftKeyboard extends CordovaPlugin {
     }
     else if (action.equals("isShowing")) {
       callbackContext.success(Boolean.toString(this.isKeyBoardShowing()));
+      return true;
+    }
+    else if (action.equals("getWebViewWidth")) {
+      callbackContext.success(getWebViewWidth());
+      return true;
+    }
+    else if (action.equals("getWebViewHeight")) {
+      callbackContext.success(getWebViewHeight());
       return true;
     }
     else if (action.equals("sendKey")) {
