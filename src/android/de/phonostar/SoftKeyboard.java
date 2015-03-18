@@ -26,6 +26,7 @@ public class SoftKeyboard extends CordovaPlugin {
         public boolean onTouch(View v, MotionEvent event) {
           xpos = (float) event.getX();
           ypos = (float) event.getY();
+          return true;
         }
       });
     }
