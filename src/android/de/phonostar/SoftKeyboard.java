@@ -7,6 +7,7 @@ import org.json.JSONException;
 
 import android.content.Context;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 
 public class SoftKeyboard extends CordovaPlugin {
@@ -30,14 +31,29 @@ public class SoftKeyboard extends CordovaPlugin {
       int heightDiff = webView.getRootView().getHeight() - webView.getHeight();
       return (100 < heightDiff); // if more than 100 pixels, its probably a keyboard...
     }
-
+    public boolean sendTap(final int posx, final int posy, final CallbackContext callbackContext) {
+      cordova.getActivity().runOnUiThread(new Runnable() {
+        public void run() {
+          boolean up, down;
+          up = webView.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, posx, posy, 0));
+          down = webView.dispatchTouchEvent(MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP, posx, posy, 0));
+          if (!down || !up) {
+            callbackContext.error("Failed sending key up+down event for coords " + x + ", " + y);
+          } else {
+            callbackContext.success("Succesfully sent key up+down event for coords " + x + ", " + y);
+          }
+        }
+      });
+      return true;
+        
+    }
     public boolean sendKey(final int keyCode, final CallbackContext callbackContext) {
-      /**
+      /*
        if (!isKeyBoardShowing()) {
         callbackContext.error("Unable to send key press for " + keyCode + ": Softkeyboard is not showing");
         return false;
       }
-      **/
+      */
 
       cordova.getActivity().runOnUiThread(new Runnable() {
         public void run() {
@@ -83,10 +99,21 @@ public class SoftKeyboard extends CordovaPlugin {
         callbackContext.error(jsonEx.getMessage());
         return false;
       }
+    } 
+    else if (action.equals("sendTap")) {
+      try {
+        int posx = args.getInt(0);
+        int posy = args.getInt(1);
+        return this.sendTap(posx, posy, callbackContext);
+      } catch (JSONException jsonEx) {
+        callbackContext.error(jsonEx.getMessage());
+        return false;
+      }
     }
     else {
       return false;
     }
   }
 }
+
 
