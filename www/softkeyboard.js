@@ -33,4 +33,11 @@ SoftKeyboard.prototype.sendKey = function (keyCode, win, fail) {
       "SoftKeyboard", "sendKey", [ keyCode ]);
 };
 
+SoftKeyboard.prototype.sendTap = function (posx, posy, win, fail) {
+  return cordova.exec(
+      function (args) { if (win) { win(args); } },
+      function (args) { if (fail) { fail(args); } },
+      "SoftKeyboard", "sendTap", [ posx, posy ]);
+};
+
 module.exports = new SoftKeyboard();
