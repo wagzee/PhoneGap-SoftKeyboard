@@ -72,7 +72,7 @@ if (Ext.os.is.Android) {
               slideHeight = fePosition - availableArea;
 
           // if view would be over slided we should set limit it to keyboard height
-          if (slideHeight >= (Ext.getBody().dom.clientHeight - softKeyHeight)) {
+          if (slideHeight >= softKeyHeight) {
               slideHeight = softKeyHeight;
           }
 
