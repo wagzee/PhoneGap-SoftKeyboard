@@ -8,7 +8,7 @@ Android SoftKeyboard Plugin for PhoneGap.
 
 ```javascript
 
-// Init callback for toggle event (every time when softkeyboard is opened or closed)
+// Init callback for toggle event (every time when softkeyboard is opened or closed the function will be called)
 SoftKeyboard.onToggle(function(softKeyBoardHeight) {
   if (softKeyBoardHeight === 0) {
     console.log('Keyboard is closed');
