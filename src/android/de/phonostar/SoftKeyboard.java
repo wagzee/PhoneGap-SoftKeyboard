@@ -24,8 +24,6 @@ public class SoftKeyboard extends CordovaPlugin {
 
     public SoftKeyboard() {
 
-        Log.d("SoftKeyboard", "::started::");
-
     }
 
     @Override
@@ -45,7 +43,7 @@ public class SoftKeyboard extends CordovaPlugin {
 
                 //be sure that keyboard showing is finished
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(250);
                 } catch(InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
@@ -53,24 +51,17 @@ public class SoftKeyboard extends CordovaPlugin {
                 //r will be populated with the coordinates of your view that area still visible.
                 activityRootView.getWindowVisibleDisplayFrame(r);
 
-                int answer;
                 int heightDiff = activityRootView.getRootView().getHeight() - (r.bottom - r.top);
 
                 if (heightDiff > 100) { // if more than 100 pixels, its probably a keyboard...
 
                     softKeyBoardIsShowing = true;
                     Log.d("isKeyBoardShowing", "::true::");
-                    answer = 1;
-
-                    //todoAtContext.success(Boolean.toString(true));
 
                 } else {
 
                     softKeyBoardIsShowing = false;
                     Log.d("isKeyBoardShowing", "::false::");
-                    answer = 2;
-
-                    //todoAtContext.success(Boolean.toString(false));
                 }
                 Log.d("isKeyBoardShowing::height::", Integer.toString(heightDiff));
 
