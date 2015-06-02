@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        id="de.phonostar.softkeyboard-custom"
+        id="de.phonostar.softkeyboard"
         version="0.1.1">
 
   <name>SoftKeyboard</name>
-  <description>Fork of the Android SoftKeyboard plugin that provides an additional method to programatically send a key press event.</description>
+  <description>Android SoftKeyboard</description>
   <license>MIT</license>
   <author>phonostar GmbH</author>
 
