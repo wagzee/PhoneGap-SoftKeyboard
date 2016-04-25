@@ -36,7 +36,7 @@ public class SoftKeyboard extends CordovaPlugin {
 
     public void initPlugin() {
 
-        final View activityRootView = (View)webView.getParent();
+        final View activityRootView = (View)webView.getView().getParent();
         activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -82,7 +82,7 @@ public class SoftKeyboard extends CordovaPlugin {
     public void hideKeyBoard() {
       InputMethodManager mgr = (InputMethodManager) cordova.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-      mgr.hideSoftInputFromWindow(webView.getWindowToken(), 0);
+      mgr.hideSoftInputFromWindow(webView.getView().getWindowToken(), 0);
     }
 
     public boolean isKeyBoardShowing() {
